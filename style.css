@@ -25,6 +25,7 @@ body{
     transform: translate(-50%, -50%);
     color: white;
     font-size: 80px;
+    z-index: 100;
 }
 
 section{

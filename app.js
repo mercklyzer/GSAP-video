@@ -1,41 +1,30 @@
-const controller = new ScrollMagic.Controller()
-
-let scene = new ScrollMagic.Scene({
-    duration: 9000,
-    triggerElement: '.intro',
-    triggerHook: 0
-})
-.addIndicators()
-.setPin('.intro')
-.addTo(controller)
-
-let accelAmount = 0.1
-let scrollPosition = 0
-let delay = 0
-
-scene.on('update', (e) => {
-    scrollPosition = e.scrollPos / 1000
-    console.log(scrollPosition)
+let tl = gsap.timeline({
+    scrollTrigger: {
+        trigger: 'video',
+        scrub: 1,
+        start:"top top",
+        end: "+=4000",
+        pin: true
+    }
 })
 
-let video = document.querySelector('video')
+tl.fromTo('video', {
+    currentTime: 0
+}, {
+    currentTime: 9,
+    ease: "none",
+    duration: 7
+})
 
-setInterval(() => {
-    delay+= (scrollPosition - delay) * accelAmount
-    console.log(scrollPosition, delay)
-    video.currentTime = delay
-}, 33.3)
-
-let textAnim = gsap.fromTo('.intro h1', {
+gsap.fromTo('.intro h1', {
     opacity: 1
 }, {
-    opacity: 0
-}, 3)
-
-let scene2 = new ScrollMagic.Scene({
-    duration: 3000,
-    triggerElement: '.intro',
-    triggerHook: 0
+    scrollTrigger: {
+        trigger: '.intro h1',
+        scrub: 0.5,
+        pin: true,
+        start: 'center center',
+        end: "+=500"
+    },
+    opacity: 0,
 })
-.setTween(textAnim)
-.addTo(controller)
